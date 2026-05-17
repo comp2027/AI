@@ -1,0 +1,98 @@
+import heapq
+
+def greedy_best_first_search(graph, heuristic, start, goal):
+
+    open_list = []
+
+    heapq.heappush(open_list, (heuristic[start], start))
+
+    visited = set()
+
+    parent = {}
+
+    while open_list:
+
+        h_value, current = heapq.heappop(open_list)
+
+        print(f"Visiting Node: {current} with h({current}) = {h_value}")
+
+        if current == goal:
+
+            print("Goal Reached!")
+
+            return reconstruct_path(parent, start, goal)
+
+        visited.add(current)
+
+        for neighbor in graph[current]:
+
+            if neighbor not in visited:
+
+                parent[neighbor] = current
+
+                heapq.heappush(open_list, (heuristic[neighbor], neighbor))
+
+    return None
+
+def reconstruct_path(parent, start, goal):
+
+    path = [goal]
+
+    while goal in parent:
+
+        goal = parent[goal]
+
+        path.append(goal)
+
+    path.reverse()
+
+    return path
+
+graph = {}
+
+heuristic = {}
+
+n = int(input("Enter number of nodes: "))
+
+print("\nEnter node names:")
+
+nodes = []
+
+for i in range(n):
+
+    node = input(f"Node {i+1}: ")
+
+    nodes.append(node)
+
+    graph[node] = []
+
+print("\nEnter neighbors for each node (space separated):")
+
+for node in nodes:
+
+    neighbors = input(f"Neighbors of {node}: ").split()
+
+    graph[node] = neighbors
+
+print("\nEnter heuristic values:")
+
+for node in nodes:
+
+    h = int(input(f"h({node}) = "))
+
+    heuristic[node] = h
+
+start = input("\nEnter start node: ")
+
+goal = input("Enter goal node: ")
+
+path = greedy_best_first_search(graph, heuristic, start, goal)
+
+if path:
+
+    print("\nFinal Path:", " -> ".join(path))
+
+else:
+
+    print("No path found!")
+

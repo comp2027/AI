@@ -1,0 +1,58 @@
+import heapq
+def a_star(graph, heuristic, start, goal):
+    open_list = []
+    heapq.heappush(open_list, (heuristic[start], 0, start))
+    parent = {start: None}
+    g_cost = {node: float('inf') for node in graph}
+    g_cost[start] = 0
+    while open_list:
+        f, current_g, current = heapq.heappop(open_list)
+        if current_g != g_cost[current]:
+            continue
+        print(f"Visiting Node: {current}, g(n)={current_g}, h(n)={heuristic[current]}, f(n)={f}")
+        if current == goal:
+            print("Goal Reached!")
+            return reconstruct_path(parent, goal), g_cost[goal]
+        for neighbor, cost in graph[current]:
+            new_g = current_g + cost
+            if new_g < g_cost[neighbor]:
+                g_cost[neighbor] = new_g
+                parent[neighbor] = current
+                new_f = new_g + heuristic[neighbor]
+                heapq.heappush(open_list, (new_f, new_g, neighbor))
+    return None, None
+def reconstruct_path(parent, goal):
+    path = []
+    while goal is not None:
+        path.append(goal)
+        goal = parent[goal]
+    path.reverse()
+    return path
+graph = {}
+heuristic = {}
+n = int(input("Enter number of nodes: "))
+print("\nEnter node names:")
+nodes = []
+for i in range(n):
+    node = input(f"Node {i+1}: ")
+    nodes.append(node)
+    graph[node] = []
+print("\nEnter edges with cost")
+print("Format: neighbor cost (Example: B 4)")
+for node in nodes:
+    m = int(input(f"\nEnter number of neighbors for {node}: "))
+    for _ in range(m):
+        neighbor, cost = input("Enter neighbor and cost: ").split()
+        graph[node].append((neighbor, int(cost)))
+print("\nEnter heuristic values:")
+for node in nodes:
+    h = int(input(f"h({node}) = "))
+    heuristic[node] = h
+start = input("\nEnter start node: ")
+goal = input("Enter goal node: ")
+path, total_cost = a_star(graph, heuristic, start, goal)
+if path:
+    print("\nOptimal Path:", " -> ".join(path))
+    print("Total Cost:", total_cost)
+else:
+    print("No path found!")
