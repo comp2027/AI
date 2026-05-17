@@ -215,3 +215,20 @@ def main():
 # -------------------------------
 if __name__ == "__main__":
     main()
+
+
+#output
+# Enter choice: 1
+
+# Enter number of vertices: 4
+
+# Enter adjacency matrix:
+
+# Row 0: 0 1 1 1
+# Row 1: 1 0 1 0
+# Row 2: 1 1 0 1
+# Row 3: 1 0 1 0
+
+# Enter number of colors: 3
+
+# Show GUI visualization? (y/n): y
