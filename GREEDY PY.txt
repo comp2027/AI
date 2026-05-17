@@ -96,3 +96,38 @@ else:
 
     print("No path found!")
 
+
+#output
+# Enter number of nodes: 7
+
+# Enter node names:
+# Node 1: A
+# Node 2: B
+# Node 3: C
+# Node 4: D
+# Node 5: E
+# Node 6: F
+# Node 7: G
+
+# Enter neighbors for each node (space separated):
+
+# Neighbors of A: B C
+# Neighbors of B: D E
+# Neighbors of C: F
+# Neighbors of D:
+# Neighbors of E: G
+# Neighbors of F:
+# Neighbors of G:
+
+# Enter heuristic values:
+
+# h(A) = 6
+# h(B) = 4
+# h(C) = 5
+# h(D) = 3
+# h(E) = 1
+# h(F) = 2
+# h(G) = 0
+
+# Enter start node: A
+# Enter goal node: G
