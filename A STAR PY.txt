@@ -56,3 +56,38 @@ if path:
     print("Total Cost:", total_cost)
 else:
     print("No path found!")
+
+# output:
+# Enter number of nodes: 4
+
+# Enter node names:
+# Node 1: A
+# Node 2: B
+# Node 3: C
+# Node 4: D
+
+# Enter edges with cost
+
+# Enter number of neighbors for A: 2
+# Enter neighbor and cost: B 1
+# Enter neighbor and cost: C 4
+
+# Enter number of neighbors for B: 1
+# Enter neighbor and cost: D 2
+
+# Enter number of neighbors for C: 1
+# Enter neighbor and cost: D 1
+
+# Enter number of neighbors for D: 0
+
+# Enter heuristic values:
+# h(A) = 3
+# h(B) = 1
+# h(C) = 1
+# h(D) = 0
+
+# Enter start node: A
+# Enter goal node: D
+
+
+
