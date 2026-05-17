@@ -1,126 +1,25 @@
-import tkinter as tk
-from tkinter import scrolledtext
-import datetime
-import random
+responses = {
+    "hello": "Hello! Welcome to customer support.",
+    "hi": "Hi! How can I help you?",
+    "products": "We sell laptops, mobiles, headphones and accessories.",
+    "laptop": "We have HP, Dell and Lenovo laptops available.",
+    "mobile": "We have Samsung, Redmi and iPhone mobiles available.",
+    "price": "Please tell the product name to know the price.",
+    "order status": "Please enter your order ID to check status.",
+    "delivery": "Delivery usually takes 3 to 5 working days.",
+    "return": "You can return the product within 7 days.",
+    "payment": "We accept UPI, card and cash on delivery.",
+    "contact": "You can contact us at support@example.com.",
+    "bye": "Thank you for contacting us. Goodbye!"
+}
 
-# ----------------- TIME & DATE -----------------
-def get_time():
-    return datetime.datetime.now().strftime("%H:%M:%S")
+while True:
+    user = input("Customer: ").lower()
 
-def get_date():
-    return datetime.datetime.now().strftime("%d-%m-%Y")
-
-# ----------------- CHATBOT LOGIC -----------------
-def chatbot_response(user_input):
-    user_input = user_input.lower().strip()
-
-    greetings = ["hello", "hi", "hey"]
-    if any(word in user_input for word in greetings):
-        return random.choice(["Hello! 😊", "Hi there! 👋", "Hey! How can I help you?"])
-
-    elif "product" in user_input:
-        return "We offer electronics, clothing, and accessories."
-
-    elif "laptop" in user_input:
-        return "We have Dell, HP, Lenovo laptops available 💻"
-
-    elif "price" in user_input or "cost" in user_input:
-        return "Prices depend on the product. Please specify item."
-
-    elif "order" in user_input and "status" in user_input:
-        return "Please provide your Order ID 📦"
-
-    elif "delivery" in user_input:
-        return "Delivery takes 3-5 business days 🚚"
-
-    elif "return" in user_input:
-        return "Return available within 7 days 🔁"
-
-    elif "time" in user_input:
-        return f"Current time is {get_time()} ⏰"
-
-    elif "date" in user_input or "today" in user_input:
-        return f"Today's date is {get_date()} 📅"
-
-    elif "thank" in user_input:
-        return "You're welcome! 😊"
-
-    elif "bye" in user_input or "exit" in user_input:
-        return "exit"
-
+    if user in responses:
+        print("Bot:", responses[user])
     else:
-        return "Sorry, I didn't understand that 🤔"
+        print("Bot: Sorry, I did not understand. Please ask about product, price, delivery, return or payment.")
 
-# ----------------- GUI FUNCTIONS -----------------
-def send_message(event=None):
-    user_msg = entry_box.get().strip()
-
-    if user_msg == "":
-        return
-
-    chat_area.config(state=tk.NORMAL)
-    chat_area.insert(tk.END, f"You ({get_time()}): {user_msg}\n", "user")
-
-    response = chatbot_response(user_msg)
-
-    if response == "exit":
-        chat_area.insert(tk.END, "Bot: Goodbye! Have a nice day 👋\n", "bot")
-        chat_area.config(state=tk.DISABLED)
-        window.after(1200, window.destroy)
-        return
-    else:
-        chat_area.insert(tk.END, f"Bot ({get_time()}): {response}\n", "bot")
-
-    chat_area.config(state=tk.DISABLED)
-    chat_area.yview_moveto(1.0)
-
-    entry_box.delete(0, tk.END)
-    entry_box.focus()
-
-# ----------------- MAIN WINDOW -----------------
-window = tk.Tk()
-window.title("💬 Smart ChatBot")
-window.geometry("500x600")
-window.configure(bg="#1e1e1e")
-
-# Chat Area
-chat_area = scrolledtext.ScrolledText(
-    window,
-    wrap=tk.WORD,
-    font=("Arial", 12),
-    bg="#2b2b2b",
-    fg="white"
-)
-chat_area.config(state=tk.DISABLED)
-chat_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
-
-chat_area.tag_config("user", foreground="#00ffcc")
-chat_area.tag_config("bot", foreground="#ffcc00")
-
-# Entry Box
-entry_box = tk.Entry(window, font=("Arial", 14))
-entry_box.pack(padx=10, pady=10, fill=tk.X)
-entry_box.focus()
-
-# Send Button
-send_button = tk.Button(
-    window,
-    text="Send",
-    font=("Arial", 12),
-    bg="#4CAF50",
-    fg="white",
-    command=send_message
-)
-send_button.pack(pady=5)
-
-# Enter key support
-window.bind("<Return>", send_message)
-
-# Welcome message
-chat_area.config(state=tk.NORMAL)
-chat_area.insert(tk.END, "Bot: Hello! Welcome to Customer Support 🤖\n", "bot")
-chat_area.insert(tk.END, "Bot: How can I help you today?\n\n", "bot")
-chat_area.config(state=tk.DISABLED)
-
-# Run
-window.mainloop()
+    if user == "bye":
+        break
